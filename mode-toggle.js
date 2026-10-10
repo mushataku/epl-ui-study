@@ -18,6 +18,10 @@
       originalAttrs.set(el, Array.from(el.attributes, a => [a.name, a.value]));
     });
   }
+  // Astro の ClientRouter はリンクを横取りして body だけ差し替える＝このスクリプトが再実行されずモード表示が消える。
+  // ページ内リンクは通常の読み込みにする（控えを取った後に足すので保存には混ざらない）
+  if (main) main.querySelectorAll('a[href]').forEach(a => a.setAttribute('data-astro-reload', ''));
+
   function pristineMainHtml() {
     const clone = main.cloneNode(true);
     const live = main.querySelectorAll('*');
@@ -61,6 +65,7 @@
   const toggle = document.createElement('a');
   toggle.className = 'mode-toggle';
   toggle.id = 'mode-toggle';
+  toggle.setAttribute('data-astro-reload', '');
   document.body.appendChild(toggle);
 
   const saveBtn = document.createElement('button');
