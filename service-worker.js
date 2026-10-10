@@ -1,13 +1,13 @@
 /**
  * eplus-next Service Worker (legacy ~/dev/eplus/public/static/service-worker.js 準拠)。
  *
- *   - scope は register 側で `/epl/tickets/` に絞る (dashboard 側では SW を起動しない)
+ *   - scope は register 側で `/epl-ui-study/tickets/` に絞る (dashboard 側では SW を起動しない)
  *   - install で静的アセットを precache
  *   - fetch で cache-first (fallback = network)
  *   - HTML / API / D1 (dynamic response) は cache しない (常に network)
  *
  * legacy と違って astro asset は hash 化されるので特定ファイル名列挙は行わず、
- * `/epl/image/`, `/epl/font/`, `/epl/lottie/`, `/epl/lottie-web/`, `/icon/` の GET のみ cache する。
+ * `/epl-ui-study/image/`, `/epl-ui-study/font/`, `/epl-ui-study/lottie/`, `/epl-ui-study/lottie-web/`, `/icon/` の GET のみ cache する。
  */
 const CACHE_NAME = 'eplus-next-static-v1';
 
@@ -15,35 +15,35 @@ const CACHE_NAME = 'eplus-next-static-v1';
 const PRECACHE = [
 	'/manifest.json',
 	// フォント
-	'/epl/font/sf_pro_text_thin.ttf',
-	'/epl/font/sf_pro_text_light.ttf',
-	'/epl/font/sf_pro_text_regular.ttf',
-	'/epl/font/sf_pro_text_medium.ttf',
-	'/epl/font/sf_pro_text_semibold.ttf',
-	'/epl/font/sf_pro_text_bold.ttf',
+	'/epl-ui-study/font/sf_pro_text_thin.ttf',
+	'/epl-ui-study/font/sf_pro_text_light.ttf',
+	'/epl-ui-study/font/sf_pro_text_regular.ttf',
+	'/epl-ui-study/font/sf_pro_text_medium.ttf',
+	'/epl-ui-study/font/sf_pro_text_semibold.ttf',
+	'/epl-ui-study/font/sf_pro_text_bold.ttf',
 	// Lottie player (self-host)
-	'/epl/lottie-web/lottie.min.js',
+	'/epl-ui-study/lottie-web/lottie.min.js',
 	// 「入場する」14 フレーム
-	'/epl/image/edsdk_btn_goto_gatepass_01.png',
-	'/epl/image/edsdk_btn_goto_gatepass_02.png',
-	'/epl/image/edsdk_btn_goto_gatepass_03.png',
-	'/epl/image/edsdk_btn_goto_gatepass_04.png',
-	'/epl/image/edsdk_btn_goto_gatepass_05.png',
-	'/epl/image/edsdk_btn_goto_gatepass_06.png',
-	'/epl/image/edsdk_btn_goto_gatepass_07.png',
-	'/epl/image/edsdk_btn_goto_gatepass_08.png',
-	'/epl/image/edsdk_btn_goto_gatepass_09.png',
-	'/epl/image/edsdk_btn_goto_gatepass_10.png',
-	'/epl/image/edsdk_btn_goto_gatepass_11.png',
-	'/epl/image/edsdk_btn_goto_gatepass_12.png',
-	'/epl/image/edsdk_btn_goto_gatepass_13.png',
-	'/epl/image/edsdk_btn_goto_gatepass_14.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_01.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_02.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_03.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_04.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_05.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_06.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_07.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_08.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_09.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_10.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_11.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_12.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_13.png',
+	'/epl-ui-study/image/edsdk_btn_goto_gatepass_14.png',
 	// もぎり関連スプライト
-	'/epl/image/edsdk_v3_icon_ticket_gatepass.png',
-	'/epl/image/edsdk_v3_st_ticket_used_stamp.png',
-	'/epl/image/edsdk_v3_icon_gate.png',
-	'/epl/image/edsdk_v3_icon_gate_star.png',
-	'/epl/image/edsdk_ic_distribution_button.png',
+	'/epl-ui-study/image/edsdk_v3_icon_ticket_gatepass.png',
+	'/epl-ui-study/image/edsdk_v3_st_ticket_used_stamp.png',
+	'/epl-ui-study/image/edsdk_v3_icon_gate.png',
+	'/epl-ui-study/image/edsdk_v3_icon_gate_star.png',
+	'/epl-ui-study/image/edsdk_ic_distribution_button.png',
 	// icon
 	'/icon/apple-touch-icon.png',
 	'/icon/favicon-32x32.png',
@@ -84,13 +84,13 @@ function isCacheable(request) {
 	if (url.origin !== self.location.origin) return false;
 	if (url.search) return false; // ?forceReload=... 等は bypass
 	if (
-		url.pathname.startsWith('/epl/image/') ||
-		url.pathname.startsWith('/epl/font/') ||
-		url.pathname.startsWith('/epl/lottie/') ||
-		url.pathname.startsWith('/epl/lottie-web/') ||
+		url.pathname.startsWith('/epl-ui-study/image/') ||
+		url.pathname.startsWith('/epl-ui-study/font/') ||
+		url.pathname.startsWith('/epl-ui-study/lottie/') ||
+		url.pathname.startsWith('/epl-ui-study/lottie-web/') ||
 		url.pathname.startsWith('/icon/') ||
 		url.pathname.startsWith('/svg/') ||
-		url.pathname.startsWith('/epl/_astro/') ||   // Astro build 済 CSS/JS (hash 化済)
+		url.pathname.startsWith('/epl-ui-study/_astro/') ||   // Astro build 済 CSS/JS (hash 化済)
 		url.pathname === '/manifest.json'
 	) {
 		return true;
