@@ -1,9 +1,9 @@
 {
     "name": "イープラス",
     "short_name": "イープラス",
-    "start_url": "/epl/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
-    "scope": "/epl/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
-    "id": "/epl/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
+    "start_url": "/epl-ui-study/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
+    "scope": "/epl-ui-study/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
+    "id": "/epl-ui-study/tickets/8a6e2443-d847-4844-9448-9a75f278def5/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
@@ -19,7 +19,7 @@
             "type": "image/png"
         },
         {
-            "src": "/epl/icon/apple-touch-icon.png",
+            "src": "/epl-ui-study/icon/apple-touch-icon.png",
             "sizes": "180x180",
             "type": "image/png",
             "purpose": "any"
